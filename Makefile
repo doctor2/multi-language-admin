@@ -13,9 +13,7 @@ echo "\n${GREEN}DONE"
 
 echo "Now run"
 docker-compose up -d
-
+echo "Migration"
 docker-compose exec app php artisan migrate --seed
-
 docker-compose exec app php artisan serve --host=0.0.0.0
 
-echo "${NC}"
