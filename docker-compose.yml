@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+
+  app:
+    container_name: laravel-app
+    build:
+      dockerfile: docker/php/develop/Dockerfile
+      context: .
+    environment:
+      COMPOSER_MEMORY_LIMIT: -1
+      COMPOSER_ALLOW_SUPERUSER: 1
+    volumes:
+      - .:/var/www/app:cached
+    ports:
+      - 8000:8000
+
+  mysql:
+    image: mysql:5
+    volumes:
+      - laravel_database:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_USER: admin
+      PMA_PASSWORD: admin
+      PMA_HOSTS: mysql
+    ports:
+      - 8080:80
+
+volumes:
+  laravel_database:
