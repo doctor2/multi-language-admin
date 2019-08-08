@@ -13,7 +13,7 @@ echo "\n${GREEN}DONE"
 
 echo "Now run"
 docker-compose up -d
-echo "Migration"
+sleep 1
 docker-compose exec app php artisan migrate --seed
 docker-compose exec app php artisan serve --host=0.0.0.0
 
